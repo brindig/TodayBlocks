@@ -1,11 +1,18 @@
 class UsersController < ApplicationController
-  
+ 
+before_filter :signed_in_user, only: [:index, :edit, :update]
+before_filter :correct_user,   only: [:edit, :update]
+ 
   def show
     @user = User.find(params[:id])
   end
 
   def new
     @user = User.new
+  end
+
+  def index
+    @users = User.all
   end
 
   def create
@@ -20,11 +27,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated"
       sign_in @user
@@ -32,5 +37,16 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+private
+ 
+  def signed_in_user
+    redirect_to signin_url, notice: "Please sign in." unless signed_in?
+  end
+
+  def correct_user
+     @user = User.find(params[:id])
+     redirect_to(root_url) unless current_user?(@user)
   end
 end
