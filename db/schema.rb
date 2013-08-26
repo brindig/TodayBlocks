@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130824212427) do
+ActiveRecord::Schema.define(:version => 20130826195215) do
+
+  create_table "block_towers", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "blocks", :force => true do |t|
+    t.integer  "block_tower_id"
+    t.integer  "position"
+    t.string   "name"
+    t.integer  "time"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"
