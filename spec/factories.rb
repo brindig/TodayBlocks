@@ -6,9 +6,10 @@ FactoryGirl.define do
     password_confirmation "rickjamesbitch"
   end
 
- factory :block_tower do
-   name            "ToDoList"
-   user_id         
+  factory :block_tower do
+    name            "ToDoList"
+    user_id         "1"
+  end         
 
   factory :block do
     name           "lorem ipsum"
